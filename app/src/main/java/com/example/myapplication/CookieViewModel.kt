@@ -1,17 +1,21 @@
 package com.example.myapplication
 
+import android.app.Application
+import android.content.SharedPreferences
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
 import kotlinx.coroutines.*
 
-class CookieViewModel : ViewModel() {
-    private val model = CookieModel()
 
+class CookieViewModel(application: Application) : AndroidViewModel(application) {
+    private val preferences: SharedPreferences =
+        application.getSharedPreferences("cookie_prefs", Application.MODE_PRIVATE)
+
+    private val model = CookieModel(preferences = preferences)
     var totalCookies = mutableStateOf(model.totalCookies)
-
     var grandmas = mutableStateOf(model.grandmas)
-
     var factories = mutableStateOf(model.factories)
+
 
     private var job: Job? = null
 
@@ -51,7 +55,7 @@ class CookieViewModel : ViewModel() {
                 delay(1000)
                 val cookiesFromGrandmas = model.grandmas * 2
                 val cookiesFromFactories = model.factories * 100
-                model.totalCookies += cookiesFromGrandmas + cookiesFromFactories
+                model.incrementCookiesBy(cookiesFromGrandmas + cookiesFromFactories)
                 withContext(Dispatchers.Main) {
                     totalCookies.value = model.totalCookies
                 }
