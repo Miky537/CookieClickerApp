@@ -2,8 +2,6 @@ package com.example.myapplication
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -37,7 +35,12 @@ fun Navigation() {
                     onClick = { selectedIndex.value = 0 },
                 )
                 NavigationBarItem(
-                    icon = { Icon(Icons.Filled.Star, contentDescription = "Store") },
+                    icon = {
+                        Icon(
+                            painter = painterResource(id = R.drawable.store_icon),
+                            contentDescription = "Store"
+                        )
+                    },
                     label = { Text("Store") },
                     selected = selectedIndex.value == 1,
                     onClick = { selectedIndex.value = 1 }
