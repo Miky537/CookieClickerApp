@@ -4,8 +4,6 @@ import android.app.Application
 import android.content.SharedPreferences
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
-import kotlinx.coroutines.*
-
 
 class CookieViewModel(application: Application) : AndroidViewModel(application) {
     private val preferences: SharedPreferences =
@@ -15,9 +13,6 @@ class CookieViewModel(application: Application) : AndroidViewModel(application) 
     var totalCookies = mutableStateOf(model.totalCookies)
     var grandmas = mutableStateOf(model.grandmas)
     var factories = mutableStateOf(model.factories)
-
-
-    private var job: Job? = null
 
     init {
         startCookieProduction()
@@ -50,21 +45,12 @@ class CookieViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     private fun startCookieProduction() {
-        job = CoroutineScope(Dispatchers.IO).launch {
-            while (isActive) {
-                delay(1000)
-                val cookiesFromGrandmas = model.grandmas * 2
-                val cookiesFromFactories = model.factories * 100
-                model.incrementCookiesBy(cookiesFromGrandmas + cookiesFromFactories)
-                withContext(Dispatchers.Main) {
-                    totalCookies.value = model.totalCookies
-                }
-            }
+        model.startProduction { newTotalCookies ->
+            totalCookies.value = newTotalCookies
         }
     }
-
     override fun onCleared() {
         super.onCleared()
-        job?.cancel()
+        model.stopProduction()
     }
 }

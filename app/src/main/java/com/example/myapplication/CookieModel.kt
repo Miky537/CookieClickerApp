@@ -1,6 +1,13 @@
 package com.example.myapplication
 
 import android.content.SharedPreferences
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 data class CookieModel(
     var totalCookies: Int = 501,
@@ -9,12 +16,30 @@ data class CookieModel(
     var cookiesPerSec: Int = 0,
     val preferences: SharedPreferences
 ) {
+    private var productionJob: Job? = null
+
     init {
         totalCookies = preferences.getInt(TOTAL_COOKIES_KEY, 501)
         grandmas = preferences.getInt(GRANDMAS_KEY, 0)
         factories = preferences.getInt(FACTORIES_KEY, 0)
         cookiesPerSec = preferences.getInt(COOKIES_PER_SEC_KEY, 0)
     }
+
+    fun startProduction(onCookiesProduced: (Int) -> Unit) {
+        productionJob = CoroutineScope(Dispatchers.IO).launch {
+            while (isActive) {
+                delay(1000)
+                val cookiesFromGrandmas = grandmas * 2
+                val cookiesFromFactories = factories * 100
+                val cookiesProduced = cookiesFromGrandmas + cookiesFromFactories
+                incrementCookiesBy(cookiesProduced)
+                withContext(Dispatchers.Main) {
+                    onCookiesProduced(totalCookies)
+                }
+            }
+        }
+    }
+
 
     fun incrementCookies() {
         totalCookies++
@@ -50,6 +75,11 @@ data class CookieModel(
 
     fun incrementCookiesBy(amountOfCookiesToUpdate: Int) {
         totalCookies += amountOfCookiesToUpdate
+        preferences.edit().putInt(TOTAL_COOKIES_KEY, totalCookies).apply()
+    }
+
+    fun stopProduction() {
+        productionJob?.cancel()
     }
 
     companion object {
