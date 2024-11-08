@@ -15,17 +15,24 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun TableLayout(autoClickers: Int, factories: Int) {
+fun TableLayout(ovens: Int, grandmas: Int, factories: Int) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
     ) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            Text(text = "Auto Clickers", fontSize = 20.sp)
-            Text(text = "$autoClickers", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+            Text(text = "Ovens", fontSize = 20.sp)
+            Text(text = "$ovens", fontSize = 20.sp, fontWeight = FontWeight.Bold)
         }
         Spacer(modifier = Modifier.height(8.dp))
+
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            Text(text = "Grandmas", fontSize = 20.sp)
+            Text(text = "$grandmas", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             Text(text = "Factories", fontSize = 20.sp)
             Text(text = "$factories", fontSize = 20.sp, fontWeight = FontWeight.Bold)
