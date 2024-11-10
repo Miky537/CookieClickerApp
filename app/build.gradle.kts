@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.kapt)
+    kotlin("plugin.serialization")
 }
 
 
@@ -68,4 +69,16 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.androidx.material)
+    implementation(libs.androidx.material)
+//    implementation(libs.ktor.client.core.x.x.x2)
+//    implementation(libs.ktor.client.adnroid.x.x.x2)
+
+//    implementation(libs.ktor.client.content.negotiation)
+//    implementation(libs.ktor.serialization.kotlinx.json)
+//    implementation(libs.kotlinx.serialization.json)
+
+
+    implementation(libs.okhttp)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 }
