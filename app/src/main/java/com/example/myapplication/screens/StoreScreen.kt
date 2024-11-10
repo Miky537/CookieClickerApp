@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.myapplication.CookieViewModel
+import com.example.myapplication.viewmodels.CookieViewModel
 import com.example.myapplication.components.TableLayout
 
 @Composable
@@ -49,13 +49,13 @@ fun StoreScreen(modifier: Modifier = Modifier, cookieViewModel: CookieViewModel 
             Button(onClick = {
                 cookieViewModel.buyGrandma()
             }) {
-                Text(text = "Buy Grandma for 500 cookies! (+2c/s)")
+                Text(text = "Buy Grandma for 500 cookies! (+7c/s)")
             }
             Spacer(modifier = Modifier.height(16.dp))
             Button(onClick = {
                 cookieViewModel.buyFactory()
             }) {
-                Text(text = "Buy cookie factory for 10 000 cookies! (+100c/s)")
+                Text(text = "Buy cookie factory for 10 000 cookies! (+150c/s)")
             }
             Spacer(modifier = Modifier.weight(1f))
             Column(
@@ -68,7 +68,7 @@ fun StoreScreen(modifier: Modifier = Modifier, cookieViewModel: CookieViewModel 
                     factories = factoryCounter ?: 0,
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                val cookiesPerSecond = ovensCounter + grandmaBakerCounter * 2 + factoryCounter * 100
+                val cookiesPerSecond = ovensCounter + grandmaBakerCounter * 7 + factoryCounter * 150
                 Text(
                     text = "You are making $cookiesPerSecond cookies per second!",
                     fontSize = 18.sp,

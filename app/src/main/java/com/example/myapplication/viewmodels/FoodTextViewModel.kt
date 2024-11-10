@@ -1,9 +1,11 @@
-package com.example.myapplication
+package com.example.myapplication.viewmodels
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.myapplication.models.FoodText
+import com.example.myapplication.models.FoodTextModel
 import kotlinx.coroutines.launch
 
 class FoodTextViewModel(private val repository: FoodTextModel = FoodTextModel()) : ViewModel() {

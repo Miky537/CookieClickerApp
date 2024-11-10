@@ -21,12 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.myapplication.FoodTextViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import org.json.JSONObject
-import java.net.HttpURLConnection
-import java.net.URL
+import com.example.myapplication.viewmodels.FoodTextViewModel
 
 @Composable
 fun FoodTextScreen(modifier: Modifier = Modifier, foodTextModel: FoodTextViewModel = viewModel()) {
@@ -70,7 +65,7 @@ fun FoodTextScreen(modifier: Modifier = Modifier, foodTextModel: FoodTextViewMod
                     )
                 } else {
                     Text(
-                        text = quote?.quote ?: "Failed to load quote", // Accessing the 'quote' property of 'FoodText'
+                        text = quote?.quote ?: "Failed to load quote",
                         color = Color.White,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier
@@ -81,25 +76,5 @@ fun FoodTextScreen(modifier: Modifier = Modifier, foodTextModel: FoodTextViewMod
                 }
             }
         }
-    }
-}
-
-
-suspend fun fetchQuoteOfTheDay(): String? = withContext(Dispatchers.IO) {
-    try {
-        val url = URL("https://catfact.ninja/fact")
-        val connection = url.openConnection() as HttpURLConnection
-        connection.requestMethod = "GET"
-
-        if (connection.responseCode == HttpURLConnection.HTTP_OK) {
-            val response = connection.inputStream.bufferedReader().use { it.readText() }
-            val json = JSONObject(response)
-            json.getString("fact")
-        } else {
-            null
-        }
-    } catch (e: Exception) {
-        e.printStackTrace()
-        null
     }
 }

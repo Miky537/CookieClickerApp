@@ -1,9 +1,10 @@
-package com.example.myapplication
+package com.example.myapplication.viewmodels
 
 import android.app.Application
 import android.content.SharedPreferences
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
+import com.example.myapplication.models.CookieModel
 
 import java.math.BigInteger
 

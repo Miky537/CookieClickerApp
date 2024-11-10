@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.models
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.models
 
 import android.content.SharedPreferences
 import kotlinx.coroutines.CoroutineScope
@@ -11,7 +11,7 @@ import kotlinx.coroutines.withContext
 import java.math.BigInteger
 
 data class CookieModel(
-    var totalCookies: BigInteger = BigInteger.valueOf(501),
+    var totalCookies: BigInteger = BigInteger.valueOf(0),
     var ovens: Int = 0,
     var grandmas: Int = 0,
     var factories: Int = 0,
@@ -22,7 +22,7 @@ data class CookieModel(
 
     init {
         totalCookies = try {
-            BigInteger(preferences.getString(TOTAL_COOKIES_KEY, "501"))
+            BigInteger(preferences.getString(TOTAL_COOKIES_KEY, "0"))
         } catch (e: ClassCastException) {
             BigInteger.valueOf(preferences.getInt(TOTAL_COOKIES_KEY, 501).toLong())
         }
@@ -37,8 +37,8 @@ data class CookieModel(
             while (isActive) {
                 delay(1000)
                 val cookiesFromOvens = BigInteger.valueOf((ovens * 1).toLong())
-                val cookiesFromGrandmas = BigInteger.valueOf((grandmas * 2).toLong())
-                val cookiesFromFactories = BigInteger.valueOf((factories * 100).toLong())
+                val cookiesFromGrandmas = BigInteger.valueOf((grandmas * 7).toLong())
+                val cookiesFromFactories = BigInteger.valueOf((factories * 150).toLong())
                 val cookiesProduced = cookiesFromOvens + cookiesFromGrandmas + cookiesFromFactories
                 incrementCookiesBy(cookiesProduced)
                 withContext(Dispatchers.Main) {

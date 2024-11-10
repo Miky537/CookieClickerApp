@@ -20,7 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.myapplication.CookieViewModel
+import com.example.myapplication.viewmodels.CookieViewModel
 import com.example.myapplication.components.ClickableAnimatedImage
 import com.example.myapplication.components.ResetButton
 
@@ -43,9 +43,13 @@ fun CookieScreen(modifier: Modifier = Modifier, cookieViewModel: CookieViewModel
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            Spacer(modifier = Modifier.height(50.dp))
+            ResetButton(
+                cookieViewModel = cookieViewModel,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+            Spacer(modifier = Modifier.height(10.dp))
             ClickableAnimatedImage(cookieViewModel = cookieViewModel)
-            Spacer(modifier = Modifier.height(100.dp))
+            Spacer(modifier = Modifier.height(90.dp))
             Text(
                 text = totalCookies,
                 style = TextStyle(
@@ -61,10 +65,7 @@ fun CookieScreen(modifier: Modifier = Modifier, cookieViewModel: CookieViewModel
             )
 
             Spacer(modifier = Modifier.height(16.dp))
-            ResetButton(
-                cookieViewModel = cookieViewModel,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            )
+
         }
     }
 }
